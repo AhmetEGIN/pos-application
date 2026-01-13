@@ -14,6 +14,7 @@ public class UserRegisterRequestToUserEntityMapper {
                 .password(userRegisterRequest.getPassword())
                 .firstName(userRegisterRequest.getFirstName())
                 .lastName(userRegisterRequest.getLastName())
+                .userType(userRegisterRequest.getUserType())
                 .build();
 
 

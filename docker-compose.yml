@@ -1,11 +1,11 @@
 services:
   database:
-    container_name: mysql_database
+    container_name: mysql_database_pos_application
     image: mysql:8.0
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: test
-      MYSQL_DATABASE: spring-boot-security
+      MYSQL_DATABASE: pos-application
       MYSQL_USER: egin
       MYSQL_PASSWORD: test
     volumes:

@@ -1,7 +1,9 @@
 package com.egin.user.model.dto.request;
 
+import com.egin.auth.model.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -24,5 +26,7 @@ public class UserRegisterRequest {
     @NotBlank(message = "Last Name cannot be blank")
     private String lastName;
 
+    @NotNull
+    private UserType userType;
 
 }

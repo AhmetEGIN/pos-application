@@ -28,9 +28,8 @@ public class UserEntity extends BaseEntity {
     private String firstName;
     private String lastName;
 
-    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private UserType userType = UserType.USER;
+    private UserType userType;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)

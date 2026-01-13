@@ -19,8 +19,7 @@ public class User extends BaseModel {
     private String firstName;
     private String lastName;
 
-    @Builder.Default
-    private UserType userType = UserType.USER;
+    private UserType userType;
 
     @Builder.Default
     private UserStatus userStatus = UserStatus.ACTIVE;
