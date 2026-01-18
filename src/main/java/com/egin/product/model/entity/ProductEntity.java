@@ -32,7 +32,9 @@ public class ProductEntity extends BaseEntity {
     private Double sellingPrice;
     private String brand;
     private String imageUrl;
-//    private CategoryEntity category;
+
+    @ManyToOne
+    private CategoryEntity categoryEntity;
 
     @ManyToOne
     private StoreEntity storeEntity;

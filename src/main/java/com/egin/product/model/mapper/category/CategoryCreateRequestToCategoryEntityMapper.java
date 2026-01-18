@@ -16,7 +16,7 @@ public class CategoryCreateRequestToCategoryEntityMapper {
 
         return CategoryEntity.builder()
                 .name(categoryCreateRequest.getName())
-                .store(StoreToStoreEntityMapper.toStoreEntity(store))
+                .storeEntity(StoreToStoreEntityMapper.toStoreEntity(store))
                 .build();
 
 

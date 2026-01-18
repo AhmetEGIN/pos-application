@@ -2,7 +2,6 @@ package com.egin.product.model;
 
 import com.egin.common.model.BaseModel;
 import com.egin.store.model.Store;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +27,6 @@ public class Product extends BaseModel {
     private String brand;
     private String imageUrl;
     private Store store;
-//    private Category category;
+    private Category category;
 
 }

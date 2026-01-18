@@ -2,6 +2,7 @@ package com.egin.product.model.mapper.product;
 
 import com.egin.product.model.Product;
 import com.egin.product.model.entity.ProductEntity;
+import com.egin.product.model.mapper.category.CategoryEntityToCategoryMapper;
 import com.egin.store.model.mapper.StoreEntityToStoreMapper;
 import lombok.experimental.UtilityClass;
 
@@ -12,6 +13,7 @@ public class ProductEntityToProductMapper {
         return Product.builder()
                 .id(productEntity.getId())
                 .store(StoreEntityToStoreMapper.toStore(productEntity.getStoreEntity()))
+                .category(CategoryEntityToCategoryMapper.toCategory(productEntity.getCategoryEntity()))
                 .name(productEntity.getName())
                 .sku(productEntity.getSku())
                 .description(productEntity.getDescription())

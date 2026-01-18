@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, String> {
 
-    Page<CategoryEntity> findAllByStoreId(String storeId, Pageable pageable);
+    Page<CategoryEntity> findAllByStoreEntityId(String storeId, Pageable pageable);
 }

@@ -14,7 +14,7 @@ public class CategoryEntityToCategoryMapper {
         return Category.builder()
                 .id(categoryEntity.getId())
                 .name(categoryEntity.getName())
-                .store(StoreEntityToStoreMapper.toStore(categoryEntity.getStore()))
+                .store(StoreEntityToStoreMapper.toStore(categoryEntity.getStoreEntity()))
                 .build();
     }
 }

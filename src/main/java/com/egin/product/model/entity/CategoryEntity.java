@@ -24,7 +24,7 @@ public class CategoryEntity extends BaseEntity {
     private String name;
 
     @ManyToOne
-    private StoreEntity store;
+    private StoreEntity storeEntity;
 
 
 }

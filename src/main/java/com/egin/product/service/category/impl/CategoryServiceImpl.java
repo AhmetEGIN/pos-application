@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     public CategoryServiceImpl(
             final CategoryRepository categoryRepository,
-            StoreService storeService
+            final StoreService storeService
     ) {
         this.categoryRepository = categoryRepository;
         this.storeService = storeService;
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CustomPage<Category> getCategoriesByStore(final String storeId, final CategoryPagingRequest request) {
         final Page<CategoryEntity> categoryEntitiesPage = categoryRepository
-                .findAllByStoreId(storeId, request.toPageable());
+                .findAllByStoreEntityId(storeId, request.toPageable());
 
         if (categoryEntitiesPage.getContent().isEmpty()) {
             throw new CategoryNotFoundException();
@@ -80,5 +80,15 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(CategoryNotFoundException::new);
 
         categoryRepository.delete(categoryEntity);
+    }
+
+    @Override
+    public Category getCategoryById(String categoryEntityId) {
+
+        final CategoryEntity categoryEntity = categoryRepository
+                .findById(categoryEntityId)
+                .orElseThrow(CategoryNotFoundException::new);
+
+        return CategoryEntityToCategoryMapper.toCategory(categoryEntity);
     }
 }
