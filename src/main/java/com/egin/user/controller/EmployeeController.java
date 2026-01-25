@@ -63,7 +63,7 @@ public class EmployeeController {
         return CustomResponse.SUCCESS;
     }
 
-    @PostMapping("/store/{storeId}")
+    @GetMapping("/store/{storeId}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN')")
     public CustomResponse<CustomPagingResponse<Employee>> getStoreEmployees(
             @PathVariable final String storeId,
@@ -76,7 +76,7 @@ public class EmployeeController {
         return CustomResponse.successOf(employees);
     }
 
-    @PostMapping("/branch/{branchId}")
+    @GetMapping("/branch/{branchId}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN', 'BRANCH_MANAGER')")
     public CustomResponse<CustomPagingResponse<Employee>> getBranchEmployees(
             @PathVariable final String branchId,
