@@ -18,5 +18,6 @@ public interface CustomerService {
 
     CustomPage<Customer> getAllCustomers(final CustomerPagingRequest pagingRequest);
 
+    CustomPage<Customer> searchCustomersByKeyword(final String keyword, final CustomerPagingRequest pagingRequest);
 }
 

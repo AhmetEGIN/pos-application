@@ -73,5 +73,18 @@ public class CustomerServiceImpl implements CustomerService {
         return CustomPage.of(customers, customerEntityPage);
     }
 
+    @Override
+    public CustomPage<Customer> searchCustomersByKeyword(String keyword, CustomerPagingRequest pagingRequest) {
+        final Page<CustomerEntity> customerEntityPage = customerRepository.searchByKeyword(
+                keyword,
+                pagingRequest.toPageable()
+        );
+
+        final List<Customer> customers = ListCustomerEntityToListCustomerMapper
+                .toCustomerList(customerEntityPage.getContent());
+
+        return CustomPage.of(customers, customerEntityPage);
+    }
+
 }
 

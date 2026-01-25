@@ -73,5 +73,18 @@ public class CustomerController {
         return CustomResponse.successOf(customers);
     }
 
+    @GetMapping("/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN')")
+    public CustomResponse<CustomPagingResponse<Customer>> searchCustomersByKeyword(
+            @RequestParam final String keyword,
+            @RequestBody @Valid final CustomerPagingRequest pagingRequest
+    ) {
+        final CustomPagingResponse<Customer> customers = CustomerCustomPageToCustomPagingResponseMapper
+                .toCustomPagingResponse(
+                        customerService.searchCustomersByKeyword(keyword, pagingRequest)
+                );
+        return CustomResponse.successOf(customers);
+    }
+
 }
 
