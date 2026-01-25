@@ -18,6 +18,7 @@ import java.util.Map;
 @SuperBuilder
 @Entity
 @Table(name = "user")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity extends BaseEntity {
 
     @Id

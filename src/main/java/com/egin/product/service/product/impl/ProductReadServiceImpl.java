@@ -7,6 +7,7 @@ import com.egin.product.model.dto.request.product.ProductPagingByStoreRequest;
 import com.egin.product.model.dto.request.product.SearchProductPagingRequest;
 import com.egin.product.model.entity.ProductEntity;
 import com.egin.product.model.mapper.product.ListProductEntityToListProductMapper;
+import com.egin.product.model.mapper.product.ProductEntityToProductMapper;
 import com.egin.product.repository.ProductRepository;
 import com.egin.product.service.product.ProductReadService;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,14 @@ public class ProductReadServiceImpl implements ProductReadService {
             ProductRepository productRepository
     ) {
         this.productRepository = productRepository;
+    }
+
+    @Override
+    public Product getProductById(String productId) {
+        final ProductEntity productEntity = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + productId));
+
+        return ProductEntityToProductMapper.toProduct(productEntity);
     }
 
     @Override

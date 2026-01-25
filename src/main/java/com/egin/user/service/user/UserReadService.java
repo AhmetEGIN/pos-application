@@ -1,4 +1,4 @@
-package com.egin.user.service;
+package com.egin.user.service.user;
 
 import com.egin.user.model.User;
 

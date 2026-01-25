@@ -9,7 +9,7 @@ import com.egin.auth.model.mapper.TokenToTokenResponseMapper;
 import com.egin.common.model.dto.response.CustomResponse;
 import com.egin.user.model.User;
 import com.egin.user.model.dto.request.UserRegisterRequest;
-import com.egin.user.service.*;
+import com.egin.user.service.user.*;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

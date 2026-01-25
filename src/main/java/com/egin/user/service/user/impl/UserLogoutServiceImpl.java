@@ -1,9 +1,9 @@
-package com.egin.user.service.impl;
+package com.egin.user.service.user.impl;
 
 import com.egin.auth.model.dto.request.TokenInvalidateRequest;
 import com.egin.auth.service.InvalidTokenService;
 import com.egin.auth.service.TokenService;
-import com.egin.user.service.UserLogoutService;
+import com.egin.user.service.user.UserLogoutService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

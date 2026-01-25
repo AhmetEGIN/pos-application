@@ -13,10 +13,11 @@ import com.egin.branch.model.request.BranchUpdateRequest;
 import com.egin.branch.repository.BranchRepository;
 import com.egin.branch.service.BranchService;
 import com.egin.common.model.CustomPage;
+import com.egin.product.service.product.ProductReadService;
 import com.egin.store.model.Store;
 import com.egin.store.service.StoreService;
 import com.egin.user.model.User;
-import com.egin.user.service.UserReadService;
+import com.egin.user.service.user.UserReadService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +29,18 @@ public class BranchServiceImpl implements BranchService {
     private final BranchRepository branchRepository;
     private final StoreService storeService;
     private final UserReadService userReadService;
+    private final ProductReadService productReadService;
 
     public BranchServiceImpl(
             BranchRepository branchRepository,
             StoreService storeService,
-            UserReadService userReadService
+            UserReadService userReadService,
+            ProductReadService productReadService
     ) {
         this.branchRepository = branchRepository;
         this.storeService = storeService;
         this.userReadService = userReadService;
+        this.productReadService = productReadService;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.egin.user.service.impl;
+package com.egin.user.service.user.impl;
 
 import com.egin.user.exception.UserNotFoundException;
 import com.egin.user.model.User;
@@ -6,7 +6,7 @@ import com.egin.user.model.entity.UserEntity;
 import com.egin.user.model.mapper.ListUserEntityToListUserMapper;
 import com.egin.user.model.mapper.UserEntityToUserMapper;
 import com.egin.user.repository.UserRepository;
-import com.egin.user.service.UserReadService;
+import com.egin.user.service.user.UserReadService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

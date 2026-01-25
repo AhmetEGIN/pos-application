@@ -14,7 +14,7 @@ import com.egin.store.repository.StoreRepository;
 import com.egin.store.service.StoreService;
 import com.egin.user.model.entity.UserEntity;
 import com.egin.user.model.mapper.UserToUserEntityMapper;
-import com.egin.user.service.UserReadService;
+import com.egin.user.service.user.UserReadService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

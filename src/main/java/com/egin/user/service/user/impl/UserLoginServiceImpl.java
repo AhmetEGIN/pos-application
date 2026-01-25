@@ -1,4 +1,4 @@
-package com.egin.user.service.impl;
+package com.egin.user.service.user.impl;
 
 import com.egin.auth.exception.PasswordNotValidException;
 import com.egin.auth.model.Token;
@@ -7,7 +7,7 @@ import com.egin.auth.service.TokenService;
 import com.egin.user.exception.UserNotFoundException;
 import com.egin.user.model.entity.UserEntity;
 import com.egin.user.repository.UserRepository;
-import com.egin.user.service.UserLoginService;
+import com.egin.user.service.user.UserLoginService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

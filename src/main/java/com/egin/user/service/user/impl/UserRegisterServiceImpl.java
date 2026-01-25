@@ -1,4 +1,4 @@
-package com.egin.user.service.impl;
+package com.egin.user.service.user.impl;
 
 import com.egin.user.exception.UserAlreadyExistsException;
 import com.egin.user.model.User;
@@ -7,7 +7,7 @@ import com.egin.user.model.entity.UserEntity;
 import com.egin.user.model.mapper.UserEntityToUserMapper;
 import com.egin.user.model.mapper.UserRegisterRequestToUserEntityMapper;
 import com.egin.user.repository.UserRepository;
-import com.egin.user.service.UserRegisterService;
+import com.egin.user.service.user.UserRegisterService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

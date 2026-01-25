@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BranchRepository extends JpaRepository<BranchEntity, String> {
 
     Page<BranchEntity> findAllByStoreEntityId(final String storeEntityId, final Pageable pageable);
+
 }
