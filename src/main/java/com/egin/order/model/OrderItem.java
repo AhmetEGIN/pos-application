@@ -20,4 +20,3 @@ public class OrderItem {
     private Product product;
 
 }
-

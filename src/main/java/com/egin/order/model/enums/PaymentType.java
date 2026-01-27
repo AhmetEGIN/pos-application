@@ -7,4 +7,3 @@ public enum PaymentType {
     MOBILE_PAYMENT,
     BANK_TRANSFER
 }
-

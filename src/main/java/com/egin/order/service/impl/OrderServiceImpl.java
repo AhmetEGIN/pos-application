@@ -1,7 +1,6 @@
 package com.egin.order.service.impl;
 
 import com.egin.branch.model.Branch;
-import com.egin.branch.model.entity.BranchEntity;
 import com.egin.branch.service.BranchService;
 import com.egin.common.model.CustomPage;
 import com.egin.order.exception.OrderNotFoundException;
@@ -11,8 +10,8 @@ import com.egin.order.model.dto.request.OrderItemCreateRequest;
 import com.egin.order.model.dto.request.OrderPagingRequest;
 import com.egin.order.model.entity.OrderEntity;
 import com.egin.order.model.entity.OrderItemEntity;
-import com.egin.order.model.enums.OrderStatus;
 import com.egin.order.model.mapper.ListOrderEntityToListOrderMapper;
+import com.egin.order.model.mapper.OrderCreateRequestToOrderEntityMapper;
 import com.egin.order.model.mapper.OrderEntityToOrderMapper;
 import com.egin.order.repository.OrderRepository;
 import com.egin.order.service.OrderService;
@@ -21,8 +20,6 @@ import com.egin.product.model.entity.ProductEntity;
 import com.egin.product.service.product.ProductReadService;
 import com.egin.user.model.Customer;
 import com.egin.user.model.User;
-import com.egin.user.model.entity.CustomerEntity;
-import com.egin.user.model.entity.UserEntity;
 import com.egin.user.service.customer.CustomerService;
 import com.egin.user.service.user.UserReadService;
 import org.springframework.data.domain.Page;
@@ -75,14 +72,8 @@ public class OrderServiceImpl implements OrderService {
         final Customer customer = customerService.getCustomerById(request.getCustomerId());
 
         // Create order entity
-        OrderEntity orderEntity = OrderEntity.builder()
-                .branchEntity(BranchEntity.builder().id(branch.getId()).build())
-                .cashier(UserEntity.builder().id(cashier.getId()).build())
-                .customerEntity(CustomerEntity.builder().id(customer.getId()).build())
-                .paymentType(request.getPaymentType())
-                .orderStatus(OrderStatus.PENDING)
-                .orderItems(new ArrayList<>())
-                .build();
+        OrderEntity orderEntity = OrderCreateRequestToOrderEntityMapper
+                .toOrderEntity(request, branch, cashier, customer);
 
         // Calculate total and create order items
         double totalAmount = 0.0;

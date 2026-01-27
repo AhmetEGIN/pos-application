@@ -29,4 +29,3 @@ public interface OrderRepository extends JpaRepository<OrderEntity, String> {
     Page<OrderEntity> findTop5RecentOrdersByBranchId(@Param("branchId") String branchId, Pageable pageable);
 
 }
-
