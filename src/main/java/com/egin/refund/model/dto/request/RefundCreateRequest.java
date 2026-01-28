@@ -17,6 +17,6 @@ public class RefundCreateRequest {
     private String reason;
     private Double amount;
     private PaymentType paymentType;
-    // private String shiftReportId;
+    private String shiftReportId;
 
 }

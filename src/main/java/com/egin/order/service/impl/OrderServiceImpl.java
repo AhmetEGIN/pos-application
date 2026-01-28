@@ -178,5 +178,15 @@ public class OrderServiceImpl implements OrderService {
         return CustomPage.of(orders, orderEntitiesPage);
     }
 
+    @Override
+    public Double calculateTotalSalesByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate) {
+        return orderRepository.calculateTotalSalesByCashierAndDateRange(cashierId, startDate, endDate);
+    }
+
+    @Override
+    public Long countOrdersByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate) {
+        return orderRepository.countOrdersByCashierAndDateRange(cashierId, startDate, endDate);
+    }
+
 }
 

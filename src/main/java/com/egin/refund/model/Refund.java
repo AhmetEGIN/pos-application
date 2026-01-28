@@ -4,6 +4,7 @@ import com.egin.branch.model.Branch;
 import com.egin.common.model.BaseModel;
 import com.egin.order.model.Order;
 import com.egin.order.model.enums.PaymentType;
+import com.egin.shiftReport.model.ShiftReport;
 import com.egin.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class Refund extends BaseModel {
     private String reason;
     private Double amount;
     private PaymentType paymentType;
-    // private ShiftReport shiftReport;
+    private ShiftReport shiftReport;
     private User cashier;
     private Branch branch;
 

@@ -27,6 +27,13 @@ public interface RefundRepository extends JpaRepository<RefundEntity, String> {
             Pageable pageable
     );
 
+    @Query("SELECT COALESCE(SUM(r.amount), 0) FROM RefundEntity r WHERE r.cashier.id = :cashierId AND r.createdAt >= :startDate AND r.createdAt <= :endDate")
+    Double calculateTotalRefundsByCashierAndDateRange(
+            @Param("cashierId") String cashierId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
     // @Query("SELECT r FROM RefundEntity r WHERE r.shiftReportEntity.id = :shiftReportId")
     // Page<RefundEntity> findByShiftReportId(@Param("shiftReportId") String shiftReportId, Pageable pageable);
 

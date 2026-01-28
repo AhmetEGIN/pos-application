@@ -16,6 +16,8 @@ import com.egin.refund.model.mapper.RefundCreateRequestToRefundEntityMapper;
 import com.egin.refund.model.mapper.RefundEntityToRefundMapper;
 import com.egin.refund.repository.RefundRepository;
 import com.egin.refund.service.RefundService;
+import com.egin.shiftReport.model.entity.ShiftReportEntity;
+import com.egin.shiftReport.repository.ShiftReportRepository;
 import com.egin.user.model.User;
 import com.egin.user.service.user.UserReadService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,7 +36,7 @@ public class RefundServiceImpl implements RefundService {
     private final OrderService orderService;
     private final BranchService branchService;
     private final UserReadService userReadService;
-    // private final ShiftReportService shiftReportService;
+    private final ShiftReportRepository shiftReportRepository;
 
     @Override
     @Transactional
@@ -47,11 +50,21 @@ public class RefundServiceImpl implements RefundService {
         // Get current user (cashier) from context
         final User cashier = userReadService.getCurrentUser();
 
-        // Get shift report (commented for now)
-        // final ShiftReport shiftReport = shiftReportService.getShiftReportById(request.getShiftReportId());
+        ShiftReportEntity shiftReportEntity = null;
+        if (request.getShiftReportId() != null && !request.getShiftReportId().isEmpty()) {
+            shiftReportEntity = shiftReportRepository.findById(request.getShiftReportId())
+                    .orElse(null);
+        }
 
         // Create refund entity
-        RefundEntity refundEntity = RefundCreateRequestToRefundEntityMapper.toRefundEntity(request, order, branch, cashier);
+        RefundEntity refundEntity = RefundCreateRequestToRefundEntityMapper.toRefundEntityWithShiftReportEntity(
+                request,
+                order,
+                branch,
+                cashier,
+                shiftReportEntity
+        );
+
         // Save refund
         RefundEntity savedRefund = refundRepository.save(refundEntity);
 
@@ -116,6 +129,11 @@ public class RefundServiceImpl implements RefundService {
                 .orElseThrow(() -> new RefundNotFoundException("Refund not found with id: " + refundId));
 
         refundRepository.delete(refundEntity);
+    }
+
+    @Override
+    public Double calculateTotalRefundsByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate) {
+        return refundRepository.calculateTotalRefundsByCashierAndDateRange(cashierId, startDate, endDate);
     }
 
 }

@@ -28,4 +28,18 @@ public interface OrderRepository extends JpaRepository<OrderEntity, String> {
     @Query("SELECT o FROM OrderEntity o WHERE o.branchEntity.id = :branchId ORDER BY o.createdAt DESC")
     Page<OrderEntity> findTop5RecentOrdersByBranchId(@Param("branchId") String branchId, Pageable pageable);
 
+    @Query("SELECT COALESCE(SUM(o.totalAmount), 0) FROM OrderEntity o WHERE o.cashier.id = :cashierId AND o.createdAt >= :startDate AND o.createdAt <= :endDate")
+    Double calculateTotalSalesByCashierAndDateRange(
+            @Param("cashierId") String cashierId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
+    @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.cashier.id = :cashierId AND o.createdAt >= :startDate AND o.createdAt <= :endDate")
+    Long countOrdersByCashierAndDateRange(
+            @Param("cashierId") String cashierId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
 }

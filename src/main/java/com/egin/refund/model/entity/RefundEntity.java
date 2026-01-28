@@ -4,7 +4,9 @@ import com.egin.branch.model.entity.BranchEntity;
 import com.egin.common.model.entity.BaseEntity;
 import com.egin.order.model.entity.OrderEntity;
 import com.egin.order.model.enums.PaymentType;
+import com.egin.shiftReport.model.entity.ShiftReportEntity;
 import com.egin.user.model.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,9 +36,9 @@ public class RefundEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-//    @ManyToOne
-//    @JsonIgnore
-//    private ShiftReportEntity shiftReportEntity;
+    @ManyToOne
+    @JsonIgnore
+    private ShiftReportEntity shiftReportEntity;
 
     @ManyToOne
     private UserEntity cashier;

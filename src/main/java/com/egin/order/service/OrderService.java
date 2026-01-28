@@ -5,6 +5,8 @@ import com.egin.order.model.Order;
 import com.egin.order.model.dto.request.OrderCreateRequest;
 import com.egin.order.model.dto.request.OrderPagingRequest;
 
+import java.time.LocalDateTime;
+
 public interface OrderService {
 
     Order createOrder(final OrderCreateRequest order);
@@ -16,6 +18,8 @@ public interface OrderService {
     CustomPage<Order> getOrdersByCustomerId(final String customerId, final OrderPagingRequest pagingRequest);
     CustomPage<Order> getTop5RecentOrdersByBranchId(final String branchId);
 
-
+    // Shift report calculations
+    Double calculateTotalSalesByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
+    Long countOrdersByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

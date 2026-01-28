@@ -6,6 +6,8 @@ import com.egin.refund.model.dto.request.RefundByCashierAndDateRangePagingReques
 import com.egin.refund.model.dto.request.RefundCreateRequest;
 import com.egin.refund.model.dto.request.RefundPagingRequest;
 
+import java.time.LocalDateTime;
+
 public interface RefundService {
 
     Refund createRefund(final RefundCreateRequest refundCreateRequest);
@@ -16,5 +18,7 @@ public interface RefundService {
     CustomPage<Refund> getRefundByCashierAndDateRange(final RefundByCashierAndDateRangePagingRequest pagingRequest);
     void deleteRefund(final String refundId);
 
+    // Shift report calculations
+    Double calculateTotalRefundsByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
 
 }
