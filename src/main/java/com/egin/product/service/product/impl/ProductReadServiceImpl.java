@@ -11,8 +11,12 @@ import com.egin.product.model.mapper.product.ProductEntityToProductMapper;
 import com.egin.product.repository.ProductRepository;
 import com.egin.product.service.product.ProductReadService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -52,5 +56,24 @@ public class ProductReadServiceImpl implements ProductReadService {
     @Override
     public CustomPage<Product> searchByKeyword(SearchProductPagingRequest request) {
         return null;
+    }
+
+    @Override
+    public List<Product> getTopSellingProductsByCashierAndDateRange(
+            final String cashierId,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate,
+            final int limit
+    ) {
+        Pageable pageable = PageRequest.of(0, limit);
+        List<ProductEntity> topProducts = productRepository.findTopSellingProductsByCashierAndDateRange(
+                cashierId, startDate, endDate, pageable
+        );
+
+        if (topProducts == null || topProducts.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return ListProductEntityToListProductMapper.toListProduct(topProducts);
     }
 }

@@ -10,10 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Strategy for calculating sales-related metrics.
- * Calculates total sales and order count for a shift period.
- */
 @Component
 @Order(1)
 @RequiredArgsConstructor

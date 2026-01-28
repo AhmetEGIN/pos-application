@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface OrderRepository extends JpaRepository<OrderEntity, String> {
 
@@ -37,6 +38,21 @@ public interface OrderRepository extends JpaRepository<OrderEntity, String> {
 
     @Query("SELECT COUNT(o) FROM OrderEntity o WHERE o.cashier.id = :cashierId AND o.createdAt >= :startDate AND o.createdAt <= :endDate")
     Long countOrdersByCashierAndDateRange(
+            @Param("cashierId") String cashierId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
+    @Query("SELECT o FROM OrderEntity o WHERE o.cashier.id = :cashierId AND o.createdAt >= :startDate AND o.createdAt <= :endDate ORDER BY o.createdAt DESC")
+    List<OrderEntity> findRecentOrdersByCashierAndDateRange(
+            @Param("cashierId") String cashierId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate,
+            Pageable pageable
+    );
+
+    @Query("SELECT o.paymentType, COALESCE(SUM(o.totalAmount), 0) FROM OrderEntity o WHERE o.cashier.id = :cashierId AND o.createdAt >= :startDate AND o.createdAt <= :endDate GROUP BY o.paymentType")
+    List<Object[]> getPaymentSummaryByCashierAndDateRange(
             @Param("cashierId") String cashierId,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate

@@ -10,10 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Strategy for calculating refund-related metrics.
- * Calculates total refunds for a shift period.
- */
 @Component
 @Order(2)
 @RequiredArgsConstructor

@@ -10,6 +10,7 @@ import com.egin.order.model.dto.request.OrderItemCreateRequest;
 import com.egin.order.model.dto.request.OrderPagingRequest;
 import com.egin.order.model.entity.OrderEntity;
 import com.egin.order.model.entity.OrderItemEntity;
+import com.egin.order.model.enums.PaymentType;
 import com.egin.order.model.mapper.ListOrderEntityToListOrderMapper;
 import com.egin.order.model.mapper.OrderCreateRequestToOrderEntityMapper;
 import com.egin.order.model.mapper.OrderEntityToOrderMapper;
@@ -25,6 +26,7 @@ import com.egin.user.service.user.UserReadService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -186,6 +190,29 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Long countOrdersByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate) {
         return orderRepository.countOrdersByCashierAndDateRange(cashierId, startDate, endDate);
+    }
+
+    @Override
+    public List<Order> getRecentOrdersByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate, final int limit) {
+        Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "createdAt"));
+        List<OrderEntity> orderEntities = orderRepository.findRecentOrdersByCashierAndDateRange(
+                cashierId, startDate, endDate, pageable
+        );
+        return ListOrderEntityToListOrderMapper.toOrderList(orderEntities);
+    }
+
+    @Override
+    public Map<PaymentType, Double> getPaymentSummaryByCashierAndDateRange(final String cashierId, final LocalDateTime startDate, final LocalDateTime endDate) {
+        List<Object[]> results = orderRepository.getPaymentSummaryByCashierAndDateRange(cashierId, startDate, endDate);
+
+        Map<PaymentType, Double> paymentSummary = new HashMap<>();
+        for (Object[] result : results) {
+            PaymentType paymentType = (PaymentType) result[0];
+            Double totalAmount = (Double) result[1];
+            paymentSummary.put(paymentType, totalAmount);
+        }
+
+        return paymentSummary;
     }
 
 }

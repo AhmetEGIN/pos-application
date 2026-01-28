@@ -16,7 +16,6 @@ import com.egin.shiftReport.service.ShiftReportService;
 import com.egin.shiftReport.service.impl.calculation.ShiftReportCalculator;
 import com.egin.user.model.User;
 import com.egin.user.service.user.UserReadService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -25,32 +24,26 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Service implementation for managing shift reports.
- *
- * <p>This service handles all shift-related operations including:
- * <ul>
- *   <li>Starting and ending shifts</li>
- *   <li>Retrieving shift reports by various criteria</li>
- *   <li>Calculating shift metrics (delegated to {@link ShiftReportCalculator})</li>
- * </ul>
- *
- * <p>Design Patterns Used:
- * <ul>
- *   <li>Strategy Pattern - for different calculation strategies</li>
- *   <li>Factory Pattern - for entity creation</li>
- *   <li>Facade Pattern - ShiftReportCalculator acts as a facade for all calculations</li>
- * </ul>
- */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class ShiftReportServiceImpl implements ShiftReportService {
 
     private final ShiftReportRepository shiftReportRepository;
     private final ShiftReportCalculator shiftReportCalculator;
     private final BranchService branchService;
     private final UserReadService userReadService;
+
+    public ShiftReportServiceImpl(
+            ShiftReportRepository shiftReportRepository,
+            ShiftReportCalculator shiftReportCalculator,
+            BranchService branchService,
+            UserReadService userReadService
+    ) {
+        this.shiftReportRepository = shiftReportRepository;
+        this.shiftReportCalculator = shiftReportCalculator;
+        this.branchService = branchService;
+        this.userReadService = userReadService;
+    }
 
     @Override
     @Transactional
@@ -140,10 +133,6 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 
     // ==================== Private Helper Methods ====================
 
-    /**
-     * Validates that the cashier doesn't have an active shift.
-     * @throws ShiftAlreadyActiveException if an active shift exists
-     */
     private void validateNoActiveShift(String cashierId) {
         shiftReportRepository.findCurrentShiftByCashierId(cashierId)
                 .ifPresent(shift -> {
@@ -152,26 +141,16 @@ public class ShiftReportServiceImpl implements ShiftReportService {
                 });
     }
 
-    /**
-     * Finds a shift report entity by ID.
-     * @throws ShiftReportNotFoundException if not found
-     */
     private ShiftReportEntity findShiftReportEntityById(String shiftReportId) {
         return shiftReportRepository.findById(shiftReportId)
                 .orElseThrow(() -> new ShiftReportNotFoundException(
                         String.format("Shift report not found with id: %s", shiftReportId)));
     }
 
-    /**
-     * Resolves the end time, using current time if null.
-     */
     private LocalDateTime resolveEndTime(LocalDateTime shiftEndTime) {
         return shiftEndTime != null ? shiftEndTime : LocalDateTime.now();
     }
 
-    /**
-     * Calculates all shift metrics using the calculator.
-     */
     private void calculateShiftMetrics(ShiftReportEntity shiftReportEntity, LocalDateTime endTime) {
         String cashierId = shiftReportEntity.getCashier().getId();
         LocalDateTime shiftStart = shiftReportEntity.getShiftStart();
@@ -179,9 +158,6 @@ public class ShiftReportServiceImpl implements ShiftReportService {
         shiftReportCalculator.calculateAll(shiftReportEntity, cashierId, shiftStart, endTime);
     }
 
-    /**
-     * Converts a Page of entities to a CustomPage of domain objects.
-     */
     private CustomPage<ShiftReport> toCustomPage(Page<ShiftReportEntity> page) {
         List<ShiftReport> shiftReports = ListShiftReportEntityToListShiftReportMapper.toShiftReportList(page.getContent());
         return CustomPage.of(shiftReports, page);

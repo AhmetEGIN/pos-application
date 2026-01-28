@@ -9,10 +9,6 @@ import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 
-/**
- * Factory class for creating ShiftReportEntity instances.
- * Follows the Factory Pattern - encapsulates object creation logic.
- */
 @UtilityClass
 public class ShiftReportEntityFactory {
 
@@ -21,14 +17,6 @@ public class ShiftReportEntityFactory {
     private static final Double INITIAL_NET_SALES = 0.0;
     private static final Double INITIAL_ORDERS = 0.0;
 
-    /**
-     * Creates a new ShiftReportEntity for starting a shift.
-     *
-     * @param branch The branch where the shift is starting
-     * @param cashier The cashier starting the shift
-     * @param shiftStartTime The shift start time (uses current time if null)
-     * @return A new ShiftReportEntity initialized with default values
-     */
     public ShiftReportEntity createForNewShift(Branch branch, User cashier, LocalDateTime shiftStartTime) {
         return ShiftReportEntity.builder()
                 .shiftStart(shiftStartTime != null ? shiftStartTime : LocalDateTime.now())

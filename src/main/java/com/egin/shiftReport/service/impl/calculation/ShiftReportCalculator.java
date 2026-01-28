@@ -9,11 +9,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Composite calculator that orchestrates all calculation strategies.
- * Follows the Composite Pattern - treats a group of strategies as a single unit.
- * Strategies are executed in order defined by @Order annotation.
- */
 @Slf4j
 @Component
 @RequiredArgsConstructor

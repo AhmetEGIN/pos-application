@@ -4,8 +4,11 @@ import com.egin.common.model.CustomPage;
 import com.egin.order.model.Order;
 import com.egin.order.model.dto.request.OrderCreateRequest;
 import com.egin.order.model.dto.request.OrderPagingRequest;
+import com.egin.order.model.enums.PaymentType;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -21,5 +24,9 @@ public interface OrderService {
     // Shift report calculations
     Double calculateTotalSalesByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
     Long countOrdersByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
+
+    // New methods for shift report details
+    List<Order> getRecentOrdersByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate, int limit);
+    Map<PaymentType, Double> getPaymentSummaryByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

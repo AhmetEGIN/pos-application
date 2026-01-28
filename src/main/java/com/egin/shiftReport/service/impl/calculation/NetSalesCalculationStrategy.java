@@ -7,11 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-/**
- * Strategy for calculating net sales.
- * Must run after SalesCalculationStrategy and RefundCalculationStrategy.
- * Calculates: netSales = totalSales - totalRefunds
- */
 @Component
 @Order(3)
 public class NetSalesCalculationStrategy implements ShiftCalculationStrategy {
