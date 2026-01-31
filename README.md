@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://img.icons8.com/color/96/000000/point-of-sale.png" alt="POS Logo"/>
-</p>
-
 <h1 align="center">🏪 POS Application</h1>
 
 <p align="center">
