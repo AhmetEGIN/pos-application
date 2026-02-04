@@ -18,7 +18,7 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 @RequiredArgsConstructor
-@EnableRedisRepositories
+//@EnableRedisRepositories
 public class RedisConfig {
 
     @Value("${spring.cache.redis.hostname}")
@@ -26,7 +26,6 @@ public class RedisConfig {
 
     @Value("${spring.cache.redis.port}")
     private int redisPort;
-
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {

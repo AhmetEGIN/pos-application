@@ -17,6 +17,10 @@ public class StoreEntityToStoreMapper {
                 .storeType(storeEntity.getStoreType())
                 .status(storeEntity.getStatus())
                 .storeContact(storeEntity.getStoreContact())
+                .createdAt(storeEntity.getCreatedAt())
+                .updatedAt(storeEntity.getUpdatedAt())
+                .createdBy(storeEntity.getCreatedBy())
+                .updatedBy(storeEntity.getUpdatedBy())
                 .build();
     }
 

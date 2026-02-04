@@ -12,6 +12,7 @@ import com.egin.store.model.mapper.StoreEntityToStoreMapper;
 import com.egin.store.model.mapper.StoreUpdateRequestToStoreEntityMapper;
 import com.egin.store.repository.StoreRepository;
 import com.egin.store.service.StoreService;
+import com.egin.user.model.User;
 import com.egin.user.model.entity.UserEntity;
 import com.egin.user.model.mapper.UserToUserEntityMapper;
 import com.egin.user.service.user.UserReadService;
@@ -36,8 +37,12 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Store createStore(StoreCreateRequest request) {
 
-        final UserEntity userEntity = UserToUserEntityMapper.toUserEntity(userReadService.getCurrentUser());
-        final StoreEntity storeEntity = StoreCreateRequestToStoreEntityMapper.toStoreEntity(request, userEntity);
+//        final UserEntity userEntity = UserToUserEntityMapper.toUserEntity(userReadService.getCurrentUser());
+        final User user = userReadService.getCurrentUser();
+        final StoreEntity storeEntity = StoreCreateRequestToStoreEntityMapper.toStoreEntity(
+                request,
+                UserToUserEntityMapper.toUserEntity(user)
+        );
         final StoreEntity savedStoreEntity = storeRepository.save(storeEntity);
 
         return StoreEntityToStoreMapper.toStore(savedStoreEntity);

@@ -24,8 +24,8 @@ public class StoreEntity extends BaseEntity {
     @Column(nullable = false)
     private String brand;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "admin_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity storeAdmin;
 
     private String description;

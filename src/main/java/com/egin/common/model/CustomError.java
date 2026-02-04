@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -23,6 +24,8 @@ public class CustomError {
     private LocalDateTime timestamp = LocalDateTime.now();
 
     private final Boolean isSuccess;
+
+    private List<CustomSubError> subErrors;
 
     @Getter
     @Builder

@@ -1,4 +1,4 @@
-package com.egin.auth.config;
+package com.egin.common.config.auditing;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component("auditorProvider")
+@Component()
 public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override

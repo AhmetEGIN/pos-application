@@ -8,6 +8,7 @@ import com.egin.user.model.mapper.UserEntityToUserMapper;
 import com.egin.user.repository.UserRepository;
 import com.egin.user.service.user.UserReadService;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,17 +44,22 @@ public class UserReadServiceImpl implements UserReadService {
 
     @Override
     public User getUserByEmail(String email) {
+        System.out.println("Fetching user by email: " + email);
         final UserEntity userEntityFromDb = this.userRepository.findUserEntityByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
-
+        System.out.println("User found: " + userEntityFromDb.getId());
         return UserEntityToUserMapper.toUser(userEntityFromDb);
     }
 
     @Override
     public User getCurrentUser() {
 
-        final String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        final Jwt jwt = (Jwt) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        final String email = jwt.getClaimAsString("userEmail");
+        System.out.println("Current user email: " + email);
         return this.getUserByEmail(email);
     }
 }

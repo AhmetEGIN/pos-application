@@ -16,6 +16,10 @@ public class UserEntityToUserMapper {
                 .lastName(userEntity.getLastName())
                 .userStatus(userEntity.getUserStatus())
                 .userType(userEntity.getUserType())
+                .createdAt(userEntity.getCreatedAt())
+                .createdBy(userEntity.getCreatedBy())
+                .updatedAt(userEntity.getUpdatedAt())
+                .updatedBy(userEntity.getUpdatedBy())
                 .build();
     }
 
