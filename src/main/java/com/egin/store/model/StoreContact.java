@@ -5,13 +5,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Embeddable
-public class StoreContact {
+public class StoreContact implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String address;
     private String phone;

@@ -18,6 +18,10 @@ import com.egin.store.model.Store;
 import com.egin.store.service.StoreService;
 import com.egin.user.model.User;
 import com.egin.user.service.user.UserReadService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +48,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    @CacheEvict(value = "branches", allEntries = true)
     public Branch createBranch(final BranchCreateRequest branchCreateRequest) {
 
         final Store store = this.storeService.
@@ -65,6 +70,11 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "branches", allEntries = true)
+    }, put = {
+            @CachePut(value = "branchById", key = "#branchId")
+    })
     public Branch updateBranch(final String branchId, final BranchUpdateRequest branchUpdateRequest) {
 
         final BranchEntity branchEntityToBeUpdate = this.branchRepository
@@ -82,6 +92,10 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "branches", allEntries = true),
+            @CacheEvict(value = "branchById", key = "#branchId")
+    })
     public void deleteBranch(final String branchId) {
 
         final BranchEntity branchEntityToBeDelete = this.branchRepository
@@ -93,6 +107,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    @Cacheable(value = "branches", key = "#storeId + '-' + #branchPagingRequest.paging.pageNumber + '-' + #branchPagingRequest.paging.pageSize")
     public CustomPage<Branch> getBranchesByStoreId(final String storeId, final BranchByStorePagingRequest branchPagingRequest) {
 
 
@@ -111,6 +126,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    @Cacheable(value = "branchById", key = "#branchId")
     public Branch getBranchById(final String branchId) {
 
         final BranchEntity branchEntity = this.branchRepository

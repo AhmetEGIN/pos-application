@@ -1,12 +1,19 @@
 package com.egin.store.controller;
 
+import com.egin.common.model.CustomPage;
+import com.egin.common.model.dto.response.CustomPagingResponse;
 import com.egin.common.model.dto.response.CustomResponse;
 import com.egin.store.model.Store;
+import com.egin.store.model.dto.request.StoreByAdminPagingRequest;
 import com.egin.store.model.dto.request.StoreCreateRequest;
+import com.egin.store.model.dto.request.StorePagingRequest;
 import com.egin.store.model.dto.request.StoreUpdateRequest;
+import com.egin.store.model.entity.StoreEntity;
+import com.egin.store.model.mapper.StoreCustomPageToCustomPagingResponseMapper;
 import com.egin.store.service.StoreService;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,16 +49,26 @@ public class StoreController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN')")
-    public CustomResponse<Store> getStoreByAdmin() {
-        final Store store = storeService.getStoreByAdmin();
-        return CustomResponse.successOf(store);
+    public CustomResponse<CustomPagingResponse<Store>> getStoreByAdmin(
+            @RequestBody final StoreByAdminPagingRequest request
+    ) {
+
+        final CustomPagingResponse<Store> stores = StoreCustomPageToCustomPagingResponseMapper
+                .toCustomPagingResponse(
+                        storeService.getStoreByAdmin(request)
+                );
+
+        return CustomResponse.successOf(stores);
     }
 
 
-    @GetMapping()
-    public CustomResponse<List<Store>> getAllStore() {
-        final List<Store> store = storeService.getAllStores();
-        return CustomResponse.successOf(store);
+    @GetMapping
+    public CustomResponse<CustomPagingResponse<Store>> getAllStore(@RequestBody final StorePagingRequest request) {
+        final CustomPagingResponse<Store> stores = StoreCustomPageToCustomPagingResponseMapper
+                .toCustomPagingResponse(
+                        storeService.getAllStores(request)
+                );
+        return CustomResponse.successOf(stores);
     }
 
 

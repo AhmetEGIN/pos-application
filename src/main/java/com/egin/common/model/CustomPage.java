@@ -4,6 +4,7 @@ package com.egin.common.model;
 import lombok.*;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomPage<T> {
+public class CustomPage<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private List<T> content;
     private Integer pageNumber;

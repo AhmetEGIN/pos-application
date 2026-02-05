@@ -30,7 +30,6 @@ public class BranchController {
     public CustomResponse<Branch> createBranch(
             @RequestBody @Valid final BranchCreateRequest request
             ) {
-
         final Branch branch = branchService.createBranch(request);
 
         return CustomResponse.successOf(branch);
