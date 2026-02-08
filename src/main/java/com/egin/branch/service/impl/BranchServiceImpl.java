@@ -126,13 +126,12 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    @Cacheable(value = "branchById", key = "#branchId")
+//    @Cacheable(value = "branchById", key = "#branchId")
     public Branch getBranchById(final String branchId) {
 
         final BranchEntity branchEntity = this.branchRepository
-                .findById(branchId)
+                .findByIdWithWorkingDays(branchId)
                 .orElseThrow(BranchEntityNotFoundException::new);
-
         return BranchEntityToBranchMapper.toBranch(branchEntity);
 
     }

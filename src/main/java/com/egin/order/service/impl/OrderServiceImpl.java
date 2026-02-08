@@ -18,6 +18,7 @@ import com.egin.order.repository.OrderRepository;
 import com.egin.order.service.OrderService;
 import com.egin.product.model.Product;
 import com.egin.product.model.entity.ProductEntity;
+import com.egin.product.model.mapper.ProductToProductEntityMapper;
 import com.egin.product.service.product.ProductReadService;
 import com.egin.user.model.Customer;
 import com.egin.user.model.User;
@@ -68,26 +69,27 @@ public class OrderServiceImpl implements OrderService {
     public Order createOrder(final OrderCreateRequest request) {
         // Get branch
         final Branch branch = branchService.getBranchById(request.getBranchId());
-
         // Get current user (cashier) from context
         final User cashier = userReadService.getCurrentUser();
-
         // Get customer
         final Customer customer = customerService.getCustomerById(request.getCustomerId());
 
         // Create order entity
         OrderEntity orderEntity = OrderCreateRequestToOrderEntityMapper
                 .toOrderEntity(request, branch, cashier, customer);
-
         // Calculate total and create order items
         double totalAmount = 0.0;
         List<OrderItemEntity> orderItems = new ArrayList<>();
-
         for (OrderItemCreateRequest itemRequest : request.getOrderItems()) {
             Product product = productReadService.getProductById(itemRequest.getProductId());
-
             OrderItemEntity orderItem = OrderItemEntity.builder()
-                    .productEntity(ProductEntity.builder().id(product.getId()).build())
+                    .productEntity(
+                            ProductToProductEntityMapper.toProductEntity(
+                                    productReadService.getProductById(
+                                            itemRequest.getProductId()
+                                    )
+                            )
+                    )
                     .quantity(itemRequest.getQuantity())
                     .price(itemRequest.getPrice())
                     .orderEntity(orderEntity)
@@ -96,13 +98,10 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
             totalAmount += itemRequest.getPrice() * itemRequest.getQuantity();
         }
-
         orderEntity.setOrderItems(orderItems);
         orderEntity.setTotalAmount(totalAmount);
-
         // Save order
         OrderEntity savedOrder = orderRepository.save(orderEntity);
-
         return OrderEntityToOrderMapper.toOrder(savedOrder);
     }
 

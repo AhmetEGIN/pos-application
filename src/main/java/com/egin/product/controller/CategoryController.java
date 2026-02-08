@@ -41,7 +41,7 @@ public class CategoryController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN', 'USER')")
     public CustomResponse<CustomPagingResponse<Category>> getCategoriesByStore(
             @PathVariable("store-id") final String storeId,
-            @Valid final CategoryPagingRequest request
+            @RequestBody @Valid final CategoryPagingRequest request
     ) {
         final CustomPage<Category> categoryPage = categoryService
                 .getCategoriesByStore(storeId, request);
