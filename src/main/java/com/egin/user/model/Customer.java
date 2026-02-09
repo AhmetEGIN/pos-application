@@ -1,13 +1,15 @@
 package com.egin.user.model;
 
+import com.egin.common.model.BaseModel;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Customer {
+@SuperBuilder
+public class Customer extends BaseModel {
 
     private String id;
     private String firstName;

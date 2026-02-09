@@ -5,7 +5,7 @@ import com.egin.branch.model.mapper.BranchToBranchEntityMapper;
 import com.egin.inventory.model.dto.request.InventoryCreateRequest;
 import com.egin.inventory.model.entity.InventoryEntity;
 import com.egin.product.model.Product;
-import com.egin.product.model.mapper.ProductToProductEntityMapper;
+import com.egin.product.model.mapper.product.ProductToProductEntityMapper;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

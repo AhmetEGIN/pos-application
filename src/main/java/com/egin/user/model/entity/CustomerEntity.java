@@ -1,5 +1,6 @@
 package com.egin.user.model.entity;
 
+import com.egin.common.model.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Entity
 @Table(name = "customers")
-public class CustomerEntity {
+public class CustomerEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

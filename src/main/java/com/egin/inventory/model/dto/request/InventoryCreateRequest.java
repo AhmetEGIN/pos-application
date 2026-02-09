@@ -7,7 +7,6 @@ import lombok.Getter;
 @Builder
 public class InventoryCreateRequest {
 
-    private String id;
 
     private String branchEntityId;
 

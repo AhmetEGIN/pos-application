@@ -15,6 +15,10 @@ public class CategoryEntityToCategoryMapper {
                 .id(categoryEntity.getId())
                 .name(categoryEntity.getName())
                 .store(StoreEntityToStoreMapper.toStore(categoryEntity.getStoreEntity()))
+                .createdAt(categoryEntity.getCreatedAt())
+                .updatedAt(categoryEntity.getUpdatedAt())
+                .createdBy(categoryEntity.getCreatedBy())
+                .updatedBy(categoryEntity.getUpdatedBy())
                 .build();
     }
 }

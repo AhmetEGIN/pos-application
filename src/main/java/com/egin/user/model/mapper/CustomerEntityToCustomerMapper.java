@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CustomerEntityToCustomerMapper {
 
-    public Customer toCustomer(CustomerEntity customerEntity) {
+    public Customer toCustomer(final CustomerEntity customerEntity) {
         return Customer.builder()
                 .id(customerEntity.getId())
                 .firstName(customerEntity.getFirstName())
@@ -17,6 +17,10 @@ public class CustomerEntityToCustomerMapper {
                 .city(customerEntity.getCity())
                 .country(customerEntity.getCountry())
                 .postalCode(customerEntity.getPostalCode())
+                .createdAt(customerEntity.getCreatedAt())
+                .updatedAt(customerEntity.getUpdatedAt())
+                .createdBy(customerEntity.getCreatedBy())
+                .updatedBy(customerEntity.getUpdatedBy())
                 .build();
     }
 

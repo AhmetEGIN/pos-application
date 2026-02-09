@@ -28,6 +28,8 @@ public class RefundEntityToRefundMapper {
                 .branch(BranchEntityToBranchMapper.toBranch(refundEntity.getBranchEntity()))
                 .createdAt(refundEntity.getCreatedAt())
                 .updatedAt(refundEntity.getUpdatedAt())
+                .createdBy(refundEntity.getCreatedBy())
+                .updatedBy(refundEntity.getUpdatedBy())
                 .build();
     }
 

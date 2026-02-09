@@ -33,6 +33,10 @@ public class BranchEntityToBranchMapper {
                 .manager(branchEntity.getManager() != null
                     ? UserEntityToUserMapper.toUser(branchEntity.getManager())
                     : null)
+                .createdAt(branchEntity.getCreatedAt())
+                .updatedAt(branchEntity.getUpdatedAt())
+                .createdBy(branchEntity.getCreatedBy())
+                .updatedBy(branchEntity.getUpdatedBy())
                 .build();
     }
 

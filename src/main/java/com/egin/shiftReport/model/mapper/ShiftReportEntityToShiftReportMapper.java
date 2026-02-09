@@ -37,6 +37,8 @@ public class ShiftReportEntityToShiftReportMapper {
                         : Collections.emptyList())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
                 .build();
     }
 

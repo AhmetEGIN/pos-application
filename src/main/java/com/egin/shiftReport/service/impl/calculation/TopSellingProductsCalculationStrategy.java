@@ -2,7 +2,7 @@ package com.egin.shiftReport.service.impl.calculation;
 
 import com.egin.product.model.Product;
 import com.egin.product.model.entity.ProductEntity;
-import com.egin.product.model.mapper.ProductToProductEntityMapper;
+import com.egin.product.model.mapper.product.ProductToProductEntityMapper;
 import com.egin.product.service.product.ProductReadService;
 import com.egin.shiftReport.model.entity.ShiftReportEntity;
 import com.egin.shiftReport.service.ShiftCalculationStrategy;

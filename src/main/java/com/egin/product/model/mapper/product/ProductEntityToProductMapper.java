@@ -14,6 +14,7 @@ public class ProductEntityToProductMapper {
                 .id(productEntity.getId())
                 .store(StoreEntityToStoreMapper.toStore(productEntity.getStoreEntity()))
                 .category(CategoryEntityToCategoryMapper.toCategory(productEntity.getCategoryEntity()))
+                .brand(productEntity.getBrand())
                 .name(productEntity.getName())
                 .sku(productEntity.getSku())
                 .description(productEntity.getDescription())
@@ -22,6 +23,8 @@ public class ProductEntityToProductMapper {
                 .imageUrl(productEntity.getImageUrl())
                 .createdAt(productEntity.getCreatedAt())
                 .updatedAt(productEntity.getUpdatedAt())
+                .createdBy(productEntity.getCreatedBy())
+                .updatedBy(productEntity.getUpdatedBy())
                 .build();
     }
 

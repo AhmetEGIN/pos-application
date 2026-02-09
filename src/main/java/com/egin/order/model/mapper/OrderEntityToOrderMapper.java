@@ -26,6 +26,8 @@ public class OrderEntityToOrderMapper {
                 .orderItems(ListOrderItemEntityToListOrderItemMapper.toOrderItemList(orderEntity.getOrderItems()))
                 .createdAt(orderEntity.getCreatedAt())
                 .updatedAt(orderEntity.getUpdatedAt())
+                .createdBy(orderEntity.getCreatedBy())
+                .updatedBy(orderEntity.getUpdatedBy())
                 .build();
     }
 

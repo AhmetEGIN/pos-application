@@ -1,4 +1,4 @@
-package com.egin.product.model.mapper;
+package com.egin.product.model.mapper.product;
 
 import com.egin.product.model.Product;
 import com.egin.product.model.entity.ProductEntity;
