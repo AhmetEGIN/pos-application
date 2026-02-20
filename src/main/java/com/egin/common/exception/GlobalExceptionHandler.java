@@ -7,6 +7,10 @@ import com.egin.branch.exception.BranchEntityNotFoundException;
 import com.egin.common.model.CustomError;
 import com.egin.inventory.exception.InventoryNotFoundException;
 import com.egin.order.exception.OrderNotFoundException;
+import com.egin.payment.exception.IllegalPaymentStateTransitionException;
+import com.egin.payment.exception.PaymentAlreadyProcessedException;
+import com.egin.payment.exception.PaymentNotFoundException;
+import com.egin.payment.exception.PaymentProcessingException;
 import com.egin.product.exception.category.CategoryNotFoundException;
 import com.egin.product.exception.product.ProductNotFoundException;
 import com.egin.refund.exception.RefundNotFoundException;
@@ -355,6 +359,60 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(customError, HttpStatus.NOT_FOUND);
 
+    }
+
+    // ==================== PAYMENT EXCEPTIONS ====================
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity<CustomError> handlePaymentNotFoundException(
+            final PaymentNotFoundException exception
+    ) {
+        CustomError customError = CustomError.builder()
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .header(CustomError.Header.NOT_FOUND.getName())
+                .message(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return new ResponseEntity<>(customError, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PaymentAlreadyProcessedException.class)
+    public ResponseEntity<CustomError> handlePaymentAlreadyProcessedException(
+            final PaymentAlreadyProcessedException exception
+    ) {
+        CustomError customError = CustomError.builder()
+                .httpStatus(HttpStatus.CONFLICT)
+                .header(CustomError.Header.ALREADY_EXISTS.getName())
+                .message(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return new ResponseEntity<>(customError, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(IllegalPaymentStateTransitionException.class)
+    public ResponseEntity<CustomError> handleIllegalPaymentStateTransitionException(
+            final IllegalPaymentStateTransitionException exception
+    ) {
+        CustomError customError = CustomError.builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .header(CustomError.Header.VALIDATION_ERROR.getName())
+                .message(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return new ResponseEntity<>(customError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PaymentProcessingException.class)
+    public ResponseEntity<CustomError> handlePaymentProcessingException(
+            final PaymentProcessingException exception
+    ) {
+        CustomError customError = CustomError.builder()
+                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .header(CustomError.Header.API_ERROR.getName())
+                .message(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return new ResponseEntity<>(customError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
