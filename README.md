@@ -459,11 +459,11 @@ pos-application/
 - [x] Docker Compose configuration
 - [x] Redis Cache integration
 - [x] Multi-store/branch support
-
+- [x] Payment integrations
 ### 🚧 In Progress
 - [ ] Swagger/OpenAPI documentation
 - [ ] Email notification system
-- [ ] Payment integrations (Stripe, Razorpay)
+
 
 ### 🔜 Planned
 
