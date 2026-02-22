@@ -77,7 +77,7 @@ public class PaymentController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STORE_ADMIN', 'CASHIER')")
     public CustomResponse<CustomPagingResponse<PaymentResponse>> getPaymentsByOrderId(
             @PathVariable(value = "order-id") final String orderId,
-            @RequestBody final PaymentByOrderPagingRequest request
+            @RequestBody @Valid final PaymentByOrderPagingRequest request
     ) {
 
         final CustomPagingResponse<PaymentResponse> response = PaymentCustomPageToCustomPagingResponseMapper

@@ -6,6 +6,7 @@ import com.egin.order.service.OrderService;
 import com.egin.shiftReport.model.entity.ShiftReportEntity;
 import com.egin.shiftReport.service.ShiftCalculationStrategy;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@org.springframework.core.annotation.Order(4)
+@Order(4)
 @RequiredArgsConstructor
 public class RecentOrdersCalculationStrategy implements ShiftCalculationStrategy {
 

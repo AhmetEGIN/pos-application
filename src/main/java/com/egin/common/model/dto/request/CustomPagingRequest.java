@@ -1,6 +1,8 @@
 package com.egin.common.model.dto.request;
 
 import com.egin.common.model.CustomPaging;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 @SuperBuilder
 public class CustomPagingRequest {
 
+    @Valid
+    @NotNull(message = "Paging information is required")
     private CustomPaging paging;
 
     public Pageable toPageable() {
